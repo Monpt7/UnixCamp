@@ -11,12 +11,12 @@ function recup($argv)
   	{
     	if (preg_match("/[K][0-9]{2}[0-9]?(.*)/", $tab_file[$i]) == 0)
       {
-        $array[0][$j] = $tab_file[$i];
+        $array[0][$j] = $tab_file[$i][1];
         $j++;
       }
   		else if (preg_match("/[S][0-9]{2}[0-9]?(.*)/", $tab_file[$i]) == 0)
       {
-        $array[1][$j] = $tab_file[$i];
+        $array[1][$j] = $tab_file[$i][1];
         $j++;
       }
   		$i++;
