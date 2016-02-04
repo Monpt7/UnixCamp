@@ -3,7 +3,7 @@ require_once('process.php');
 require_once('recup.php');
 require_once('parseConf.php');
 
-if (isset($argv[1]))
-  $defInit = $argv[1];
-$tab = recup($defInit, $path)
+$tab = recup($defInit, $path);
+$tabOld = recupOld($previous, $path);
+killOld($tabOld, $previous, $path);
 process($tab, $defInit, $path);
