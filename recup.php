@@ -1,13 +1,11 @@
 <?php
 
-require_once('process.php');
-
-function recup($argv)
+function recup($initNbr, $path)
 {
   $j = 0;
   $i = 0;
   $k = 0;
-	$file = "/etc/" . "rc" . "$argv[1]" . '.d/';
+	$file = $path . "rc" . "$argv[1]" . '.d/';
 
  if (is_readable($file))
   {
@@ -29,5 +27,3 @@ function recup($argv)
   }
 	return ($array);
 }
-
-process(recup($argv), $argv[1]);
