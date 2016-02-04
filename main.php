@@ -5,4 +5,5 @@ require_once('parseConf.php');
 
 if (isset($argv[1]))
   $defInit = $argv[1];
-process(recup($defInit, $path), $defInit);
+$tab = recup($defInit, $path)
+process($tab, $defInit, $path);
