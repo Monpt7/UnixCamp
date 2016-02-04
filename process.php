@@ -7,7 +7,8 @@ function process($tab, $init, $path)
 	{
 		exec("bash ".$path."rc".$init.".d/".$tab[0][$i]." stop");
 		$verif = shell_exec("echo $?");
-		if ($verif)
+		$verif = intval($verif);
+		if ($verif == 0)
 			echo "Stopping " . $tab[0][$i] . "...\t\t\t[ \033[32mOK\033[0m ]\n";
 		else
 			echo "Stopping " . $tab[0][$i] . "...\t\t\t[ \033[31mFAIL\033[0m ]\n";
@@ -18,7 +19,8 @@ function process($tab, $init, $path)
 	{
 		exec("bash ".$path."rc".$init.".d/".$tab[1][$i]." start");
 		$verif = shell_exec("echo $?");
-		if ($verif)
+		$verif = intval($verif);
+		if ($verif == 0)
 			echo "Starting " . $tab[1][$i] . "...\t\t\t[ \033[32mOK\033[0m ]\n";
 		else
 			echo "Starting " . $tab[1][$i] . "...\t\t\t[ \033[31mFAIL\033[0m ]\n";
@@ -33,7 +35,8 @@ function killOld($tab, $init, $path)
 	{
 		exec("bash ".$path."rc".$init.".d/".$tab[$i]." stop");
 		$verif = shell_exec("echo $?");
-		if ($verif)
+		$verif = intval($verif);
+		if ($verif == 0)
 			echo "Stopping " . $tab[$i] . "...\t\t\t[ \033[32mOK\033[0m ]\n";
 		else
 			echo "Stopping " . $tab[$i] . "...\t\t\t[ \033[31mFAIL\033[0m ]\n";
