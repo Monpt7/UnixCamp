@@ -5,6 +5,7 @@
 #include <regex.h>
 #include <dirent.h>
 #include <stdlib.h>
+#include <sys/stat.h>
 
 char *concatener(char *path, char *initNbr)
 {
@@ -17,40 +18,41 @@ char *concatener(char *path, char *initNbr)
   return (str);
 }
 
-void tab(char *file, int i, int j, int k)
+char ***tab(char *file, int i, int j, int k)
 {
   char ***array;
   int reg1;
   int reg2;
   regex_t regex1;
   regex_t regex2;
+  struct stat s;
   struct dirent *read;
   DIR *dir;
 
   dir = opendir(file);
   reg1 = regcomp(&regex1, "^[S][:digit:]*", 0);
   reg2 = regcomp(&regex2, "^[K][:digit:]*", 0);
-  array = malloc(100 * sizeof(char));
+  array = malloc(s.st_size * sizeof(char));
+  array[0] = malloc(s.st_size * sizeof(char));
+  array[1] = malloc(s.st_size * sizeof(char));
 
   while ((read = readdir(dir))) {
       reg1 = regexec(&regex1, read->d_name, 0, NULL, 0);
       reg2 = regexec(&regex2, read->d_name, 0, NULL, 0);
+      array[0][i+j] = malloc(strlen(read->d_name) * sizeof(char));
+      array[1][i+j] = malloc(strlen(read->d_name) * sizeof(char));
 
-      /*if (!reg1) {
+      if (!reg1) {
         array[0][i] = read->d_name;
-        printf("%s\n", array[0][i]);
         i++;
       }
       else if (!reg2) {
         array[1][j] = read->d_name;
-        printf("%s\n", array[1][j]);
         j++;
       }
-      else {*/
-        printf("%d\n", reg1);
-        printf("%d\n", reg2);
-      //}
   }
+  return (array);
+  free(array);
   closedir(dir);
 }
 
@@ -77,7 +79,7 @@ int main(int argc, char *argv[]) {
   char *initNbr;
   char *path;
   initNbr = argv[1];
-  path = "/Users/viallo_l/UnixCamp/";
+  path = "/Users/perrin_l/unix_camp/UnixCamp/";
   recup(initNbr, path);
   return 0;
 }
