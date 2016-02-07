@@ -62,8 +62,8 @@ char *parseConf(char *argv)
       remove(file);
       newFile = fopen(file, "w+");
       printf("%s\n", path);
-      fwrite(path, 1, sizeof(path), newFile);
-      fwrite(defaut, 1, sizeof(defaut), newFile);
+      fprintf(newFile, path, NULL);
+      //fwrite(defaut, 1, sizeof(defaut), newFile);
   }
   else
   puts("No file or no permission denied");
