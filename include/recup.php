@@ -12,12 +12,12 @@ function recup($initNbr, $path)
   	$tab_file = scandir($file);
   	while (isset($tab_file[$i]))
   	{
-    	if (preg_match("/[K][0-9]{2}[0-9]?(.*)/", $tab_file[$i], $output) == 1)
+    	if (preg_match("/[K][0-9]+(.*)/", $tab_file[$i], $output) == 1)
       {
         $array[0][$j] = $output[0];
         $j++;
       }
-  		else if (preg_match("/[S][0-9]{2}[0-9]?(.*)/", $tab_file[$i], $output) == 1)
+  		else if (preg_match("/[S][0-9]+(.*)/", $tab_file[$i], $output) == 1)
       {
         $array[1][$k] = $output[0];
         $k++;
@@ -42,7 +42,7 @@ function recupOld($previous, $path)
     $arrayOld = array();
     while (isset($tab_file[$i]))
     {
-      if (preg_match("/[S][0-9]{2}[0-9]?(.*)/", $tab_file[$i], $output) == 1)
+      if (preg_match("/[S][0-9]+(.*)/", $tab_file[$i], $output) == 1)
       {
         $arrayOld[$j] = $output[0];
         $j++;
