@@ -37,6 +37,7 @@ function recupOld($previous, $path)
  if (is_readable($file))
   {
     $tab_file = scandir($file);
+    $arrayOld = array();
     while (isset($tab_file[$i]))
     {
       if (preg_match("/[S][0-9]{2}[0-9]?(.*)/", $tab_file[$i], $output) == 1)
