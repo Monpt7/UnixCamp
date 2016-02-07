@@ -13,6 +13,7 @@ char *parseConf(char *argv)
   char *str;
   char path[100];
   char defaut[30];
+  char *previous;
   char *initNbr;
   char *write;
   int i;
@@ -29,6 +30,7 @@ char *parseConf(char *argv)
 
   file = "process.conf";
   initNbr = malloc(10);
+  previous = malloc(30);
   reg1 = regcomp(&regex1, "previous=[:digit:]*", 0);
   reg2 = regcomp(&regex2, "path=[.]*", 0);
   reg3 = regcomp(&regex3, "default=[:digit:]*", 0);
@@ -43,7 +45,8 @@ char *parseConf(char *argv)
         reg2 = regexec(&regex2, str, 0, NULL, 0);
         reg3 = regexec(&regex3, str, 0, NULL, 0);
 
-        if (!reg1)
+        if (!reg1) {
+          previous = str;
           while (*str != '\n') {
             if (j == 1) {
               initNbr[k] = *str;
@@ -53,6 +56,7 @@ char *parseConf(char *argv)
               j = 1;
             str++;
           }
+        }
         if (!reg2)
           strcat(path, str);
         if (!reg3)
@@ -61,7 +65,10 @@ char *parseConf(char *argv)
       fclose(f);
       remove(file);
       newFile = fopen(file, "w+");
-      printf("%s\n", path);
+      strcat(path, defaut);
+      puts(defaut);
+      strcat(path, "previous=");
+      strcat(path, initNbr);
       fprintf(newFile, path, NULL);
       //fwrite(defaut, 1, sizeof(defaut), newFile);
   }
