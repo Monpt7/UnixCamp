@@ -7,6 +7,78 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 
+char *parseConf(char *argv)
+{
+  char *file;
+  char *str;
+  char path[100];
+  char defaut[30];
+  char *previous;
+  char *initNbr;
+  char *write;
+  int i;
+  int j;
+  int k;
+  int reg1;
+  int reg2;
+  int reg3;
+  regex_t regex1;
+  regex_t regex2;
+  regex_t regex3;
+  FILE *f;
+  FILE *newFile;
+
+  file = "process.conf";
+  initNbr = malloc(10);
+  previous = malloc(30);
+  reg1 = regcomp(&regex1, "previous=[:digit:]*", 0);
+  reg2 = regcomp(&regex2, "path=[.]*", 0);
+  reg3 = regcomp(&regex3, "default=[:digit:]*", 0);
+  i = 0;
+  j = 0;
+  k = 0;
+  if (access(file, F_OK | R_OK) == 0) {
+      f = fopen(file, "rw");
+      str = malloc(sizeof(char) * 100);
+      while (fgets(str, 100, f) != NULL) {
+        reg1 = regexec(&regex1, str, 0, NULL, 0);
+        reg2 = regexec(&regex2, str, 0, NULL, 0);
+        reg3 = regexec(&regex3, str, 0, NULL, 0);
+
+        if (!reg1) {
+          previous = str;
+          while (*str != '\n') {
+            if (j == 1) {
+              initNbr[k] = *str;
+              k++;
+            }
+            if (*str == '=')
+              j = 1;
+            str++;
+          }
+        }
+        if (!reg2)
+          strcat(path, str);
+        if (!reg3)
+          strcat(defaut, str);
+      }
+      fclose(f);
+      remove(file);
+      newFile = fopen(file, "w+");
+      strcat(path, defaut);
+      puts(defaut);
+      strcat(path, "previous=");
+      strcat(path, initNbr);
+      fprintf(newFile, path, NULL);
+      //fwrite(defaut, 1, sizeof(defaut), newFile);
+  }
+  else
+  puts("No file or no permission denied");
+//  free(&regex1);
+  return (initNbr);
+
+}
+
 char *concatener(char *path, char *initNbr)
 {
   char *str;
@@ -51,9 +123,10 @@ char ***tab(char *file, int i, int j, int k)
         j++;
       }
   }
+  closedir(dir);
   return (array);
   free(array);
-  closedir(dir);
+
 }
 
 
@@ -73,13 +146,17 @@ void recup(char *initNbr, char  *path)
   {
     tab(file, i, j, k);
   }
+  else {
+    //putstr("No such file or permission denied");
+  }
 }
 
 int main(int argc, char *argv[]) {
-  char *initNbr;
+  //char *initNbr;
   char *path;
-  initNbr = argv[1];
-  path = "/Users/perrin_l/unix_camp/UnixCamp/";
-  recup(initNbr, path);
+  //initNbr = argv[1];
+  //path = "/Users/perrin_l/unix_camp/UnixCamp/";
+  //recup(initNbr, path);*/
+  parseConf(argv[1]);
   return 0;
 }
