@@ -27,7 +27,7 @@ function recup($initNbr, $path)
     return ($array);
   }
   else
-    echo "Erreur: Le dossier specifie n'a pas pu etre ouvert.\n";
+    echo "Erreur: Le dossier specifié n'a pas pu etre ouvert.\n";
 }
 
 function recupOld($previous, $path)

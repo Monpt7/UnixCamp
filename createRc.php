@@ -1,7 +1,7 @@
 <?php
 
 $init = my_readline("Quel init modifier ?\n > ");
-$dossier = my_readline("Dans quel dossier (chemin absolu avec slash a la fin\n > ");
+$dossier = my_readline("Dans quel dossier (chemin absolu avec slash à la fin) ?\n > ");
 $verif = preg_match("/[\d]*/", $init, $output);
 if ($verif)
 {
@@ -11,7 +11,7 @@ if ($verif)
 	exec("mkdir ".$dossierFinal);
 	echo "Entrer les services que vous souhaitez stopper dans cet init\n";
 	echo "Par ordre de priorite\n";
-	echo "Tapez q pour l'etape suivante\n";
+	echo "Tapez q pour passer à l'etape suivante\n";
 	$i = 0;
 	while (strcmp($service, "q") != 0)
 	{
@@ -24,7 +24,7 @@ if ($verif)
 		{
 			if (symlink("/etc/init.d/".$service, $dossierFinal."K".$nbr.$service))
 			{
-				echo "OK\n"; 
+				echo "OK\n";
 				$i++;
 			}
 		}
@@ -34,8 +34,8 @@ if ($verif)
 	$service = "a";
 	$i = 0;
 	echo "Entrer les services que vous souhaitez start dans cet init\n";
-	echo "Par ordre de priorite\n";
-	echo "Tapez q pour l'etape suivante\n";
+	echo "Par ordre de prioriter\n";
+	echo "Tapez q pour passer à l'etape suivante\n";
 	while (strcmp($service, "q") != 0)
 	{
 		if ($i < 10)
@@ -47,7 +47,7 @@ if ($verif)
 		{
 			if (symlink("/etc/init.d/".$service, $dossierFinal."S".$nbr.$service))
 			{
-				echo "OK\n"; 
+				echo "OK\n";
 				$i++;
 			}
 		}
@@ -57,7 +57,7 @@ if ($verif)
 }
 else
 {
-	echo "Veuillez rentrer un nombre\n";
+	echo "Veuillez entrer un nombre\n";
 }
 
 function my_readline($prompt = null){

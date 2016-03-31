@@ -10,7 +10,7 @@ if ($confFile = fopen('process.conf', 'r'))
 	  	else if (preg_match("/^default=([\d]+)$/", $line, $output))
     		$default = $output[1];
 		else if (preg_match("/^previous=([\d]+)$/", $line, $output))
-    		$previous = $output[1];	
+    		$previous = $output[1];
 	}
 	fclose($confFile);
 	if (isset($previous) && isset($default) && isset($path))
@@ -23,7 +23,7 @@ if ($confFile = fopen('process.conf', 'r'))
   	else
   	{
   		echo "Le fichier process.conf semble corrompu... \n";
-  		echo "Il va etre recree. Vous devrez modifier la ligne path pour profiter du programme\n";
+  		echo "Il va etre recrée. Vous devrez modifier la ligne path pour profiter du programme\n";
   		$path = "/ici/le/chemin/abslolu/de/vos/dossiers/rcX.d/";
   		$default = 0;
   		$defInit = 0;
